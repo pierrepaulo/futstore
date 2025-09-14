@@ -1,5 +1,5 @@
 import { Product } from "@/types/products";
-import { ProductItem } from "./layout/product-item";
+import { ProductItem } from "./product-item";
 
 type Props = {
   list: Product[];
