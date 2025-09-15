@@ -16,8 +16,9 @@ export default async function Page({ params }: Props) {
   return (
     <div>
       <div className="text-gray-500 mb-4">
-        <Link href={"/"}>Home</Link> &gt; Camisas <Link href={"/"}> </Link> &gt;
-        Nome do produto
+        <Link href={"/"}>Home</Link> &gt; TEMPORARIO <Link href={"/"}> </Link>{" "}
+        &gt;
+        {data.product.label}
       </div>
       <div className="flex flex-col md:flex-row gap-6 md:gap-32">
         <ImageSlider images={data.product.images} />
