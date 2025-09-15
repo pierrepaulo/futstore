@@ -3,6 +3,8 @@
 import { useQueryString } from "@/hooks/use-querystring";
 import { ChangeEvent, useState } from "react";
 import { FilterGroup } from "./filter-group";
+import { ProductItem } from "../product-item";
+import { data } from "@/data";
 
 export const ProductListFilter = () => {
   const queryString = useQueryString();
@@ -18,7 +20,8 @@ export const ProductListFilter = () => {
     <div>
       <div className=" flex flex-col md:flex-row gap-6 justify-between items-start md:items-center">
         <div className="text-3xl">
-          <strong>99</strong> Produtos{" "}
+          <strong>{data.products.length} </strong> Produto
+          {data.products.length != 1 ? "s" : ""}
         </div>
         <div className="w-full md:max-w-70 flex flex-row gap-5">
           <select
@@ -48,11 +51,10 @@ export const ProductListFilter = () => {
           <FilterGroup id="national" name="Camisas Nacionais" />
           <FilterGroup id="internacional" name="Camisas Internacionais" />
         </div>
-        <div className="flex-1 grid grid-cols-1 md:grid-cols-3">
-          <div>...</div>
-          <div>...</div>
-          <div>...</div>
-          <div>...</div>
+        <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {data.products.map((item) => (
+            <ProductItem key={item.id} data={item} />
+          ))}
         </div>
       </div>
     </div>
