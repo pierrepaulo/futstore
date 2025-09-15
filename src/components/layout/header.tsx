@@ -5,11 +5,7 @@ import { HeaderIcon } from "./header-icon";
 import Link from "next/link";
 import { useState } from "react";
 import { HeaderSearch } from "./header-search";
-
-type MenuItem = {
-  label: string;
-  href: string;
-};
+import { MenuItem } from "@/types/menu-item";
 
 export function Header() {
   const menu: MenuItem[] = [
