@@ -4,12 +4,17 @@ import Image from "next/image";
 import { FilterItem } from "./filter-item";
 import { useState } from "react";
 
-export const FilterGroup = () => {
+type Props = {
+  id: string;
+  name: string;
+};
+
+export const FilterGroup = ({ id, name }: Props) => {
   const [opened, setOpened] = useState(true);
   return (
     <div className="mb-8">
       <div className="flex justify-between items-center border-b border-gray-200 pb-4 mb-8">
-        <div className="flex-1 font-bold text-xl">Nome do grupo</div>
+        <div className="flex-1 font-bold text-xl">{name} </div>
         <div
           onClick={() => setOpened(!opened)}
           className="size-8 flex justify-center items-center cursor-pointer"
@@ -28,9 +33,9 @@ export const FilterGroup = () => {
           opened ? "max-h-96" : "max-h-0"
         } transition-all`}
       >
-        <FilterItem id={1} label={"Item 1"} />
-        <FilterItem id={2} label={"Item 2"} />
-        <FilterItem id={3} label={"Item 3"} />
+        <FilterItem groupId={id} item={{ id: "santos", label: "Santos" }} />
+        <FilterItem groupId={id} item={{ id: "flamengo", label: "Flamengo" }} />
+        <FilterItem groupId={id} item={{ id: "vasco", label: "Cruzeiro" }} />
       </div>
     </div>
   );

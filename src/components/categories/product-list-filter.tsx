@@ -45,8 +45,8 @@ export const ProductListFilter = () => {
             filterOpened ? "block" : "hidden"
           } md:block `}
         >
-          <FilterGroup />
-          <FilterGroup />
+          <FilterGroup id="national" name="Camisas Nacionais" />
+          <FilterGroup id="internacional" name="Camisas Internacionais" />
         </div>
         <div className="flex-1 grid grid-cols-1 md:grid-cols-3">
           <div>...</div>
