@@ -36,4 +36,15 @@ export const data = {
       liked: false,
     },
   ],
+  product: {
+    id: 1,
+    label: "Camisa Santos",
+    images: [
+      "/assets/products/santosfront.webp",
+      "/assets/products/santosback.webp",
+    ],
+    price: 99.9,
+    liked: false,
+    description: "Algum descrição",
+  },
 };
