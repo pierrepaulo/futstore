@@ -59,7 +59,7 @@ export const CartProductItem = ({ item }: Props) => {
             >
               -
             </div>
-            <div className="size-10 text-2lg flex justify-center items-center border-x border-gray-200">
+            <div className="size-10 text-lg flex justify-center items-center border-x border-gray-200">
               {item.quantity}
             </div>
             <div
