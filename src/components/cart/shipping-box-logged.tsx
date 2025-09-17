@@ -67,7 +67,7 @@ export const ShippingBoxLogged = () => {
           </option>
         ))}
       </select>
-      <button className="px-4 py-2  bg-blue-600 text-white border-0 rounded-sm ">
+      <button className="cursor-pointer border-0 rounded-sm ">
         Adicionar um novo endereço
       </button>
     </div>
