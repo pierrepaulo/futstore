@@ -94,7 +94,7 @@ export const RegisterForm = () => {
                focus:border-blue-600 focus:ring-2 focus:ring-blue-200"
           disabled={pending}
         />
-        {errors.email && (
+        {errors.name && (
           <div className="text-red-500 text-sm mt-1">{errors.name} </div>
         )}
       </div>
@@ -139,7 +139,7 @@ export const RegisterForm = () => {
                focus:border-blue-600 focus:ring-2 focus:ring-blue-200"
           disabled={pending}
         />
-        {errors.password && (
+        {errors.confirmPassword && (
           <div className="text-red-500 text-sm mt-1">
             {errors.confirmPassword}
           </div>
