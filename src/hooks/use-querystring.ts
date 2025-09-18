@@ -1,22 +1,29 @@
+"use client";
+
+import { useCallback } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-export const useQueryString = () => {
+export function useQueryString() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  return {
-    get: (att: string) => {
-      return searchParams.get(att);
-    },
-    set: (att: string, val: string) => {
+  const get = useCallback(
+    (key: string) => searchParams.get(key),
+    [searchParams]
+  );
+
+  const set = useCallback(
+    (key: string, value?: string) => {
       const params = new URLSearchParams(searchParams.toString());
-      if (val) {
-        params.set(att, val);
-      } else {
-        params.delete(att);
-      }
-      router.push(`${pathname}?${params.toString()}  `);
+      if (value && value.length > 0) params.set(key, value);
+      else params.delete(key);
+
+      const qs = params.toString();
+      router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
     },
-  };
-};
+    [router, pathname, searchParams]
+  );
+
+  return { get, set };
+}
