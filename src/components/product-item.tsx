@@ -41,14 +41,17 @@ export const ProductItem = ({ data }: Props) => {
         </div>
       </div>
       <div className=" flex justify-center ">
-        <Link href={link}>
-          <Image
-            src={data.image}
-            alt={data.label}
-            width={200}
-            height={200}
-            className="max-w-full h-48  "
-          />
+        <Link href={link} className="block w-full">
+          <div className="relative w-full aspect-square">
+            <Image
+              src={data.image}
+              alt={data.label}
+              fill
+              className="object-contain"
+              sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+              priority={false}
+            />
+          </div>
         </Link>
       </div>
       <div className="mt-8 text-lg font-bold">
