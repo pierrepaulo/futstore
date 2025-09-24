@@ -3,25 +3,27 @@ import { PrismaClient } from "@/generated/prisma";
 const prisma = new PrismaClient();
 
 async function main() {
+  await prisma.banner.deleteMany();
+
   await prisma.banner.createMany({
     data: [
       {
-        img: "/assets/banners/banner-1.jpg",
+        img: "/assets/banners/banner-1.png",
         link: "/categories/camisas",
         createdAt: new Date(),
       },
       {
-        img: "/assets/banners/banner-2.jpg",
+        img: "/assets/banners/banner-2.png",
         link: "/categories/camisas",
         createdAt: new Date(),
       },
       {
-        img: "/assets/banners/banner-3.jpg",
+        img: "/assets/banners/banner-3.png",
         link: "/categories/camisas",
         createdAt: new Date(),
       },
       {
-        img: "/assets/banners/banner-4.jpg",
+        img: "/assets/banners/banner-4.png",
         link: "/categories/camisas",
         createdAt: new Date(),
       },
@@ -29,11 +31,4 @@ async function main() {
   });
 }
 
-main()
-  .catch((e) => {
-    console.error(e);
-    process.exit(1);
-  })
-  .finally(async () => {
-    await prisma.$disconnect();
-  });
+main().finally(() => prisma.$disconnect());
