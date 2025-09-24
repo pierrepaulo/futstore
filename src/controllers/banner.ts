@@ -1,12 +1,16 @@
-import { getAllBanners } from "@/services/banner";
-import { getAbsoluteImageUrl } from "@/utils/get-absolute-image-url";
 import { RequestHandler } from "express";
+import { getAllBanners } from "../services/banner";
+import { getAbsoluteImageUrl } from "../utils/get-absolute-image-url";
 
-export const getBanners: RequestHandler = async (req, res) => {
+export const getBanners: RequestHandler = async (_req, res) => {
   const banners = await getAllBanners();
-  const bannersWithAbsoluteUrl = banners.map((banner) => ({
-    ...banner,
-    img: getAbsoluteImageUrl(banner.img),
+
+  const bannersWithAbsoluteUrl = banners.map((b) => ({
+    ...b,
+    img: getAbsoluteImageUrl(b.img),
   }));
-  res.json({ error: null });
+
+  console.log("[GET /banners] count =", bannersWithAbsoluteUrl.length);
+
+  res.json({ error: null, banners: bannersWithAbsoluteUrl });
 };

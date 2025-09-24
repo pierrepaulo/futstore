@@ -1,5 +1,6 @@
 import { Router } from "express";
-import * as bannerController from "../controllers/banner";
+import * as bannerController from "../controllers/banner"; // ajuste o caminho se necessário
+
 export const routes = Router();
 
 routes.get("/ping", (req, res) => {

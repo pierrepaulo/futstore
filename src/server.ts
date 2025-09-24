@@ -14,7 +14,7 @@ server.use((err: any, req: Request, res: Response, next: NextFunction) => {
   res.status(500).json({ error: "Ocorreu algum error" });
 });
 
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 4444;
 server.listen(port, () => {
   console.log("backend running..." + port);
 });
