@@ -1,0 +1,35 @@
+{
+  "name": "futstore-backend",
+  "version": "1.0.0",
+  "description": "BACKEND FutStore",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsx watch src/server.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pierrepaulo/futstore-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pierrepaulo/futstore-backend/issues"
+  },
+  "homepage": "https://github.com/pierrepaulo/futstore-backend#readme",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "stripe": "^19.1.0",
+    "uuid": "^13.0.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.7.0",
+    "prisma": "^6.17.0",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
+  }
+}
