@@ -12,7 +12,7 @@ export const authMiddleware = async (
     return;
   }
   const tokenSplit = authHeader.split("Bearer ");
-  if (tokenSplit[1]) {
+  if (!tokenSplit[1]) {
     res.status(401).json({ error: "Acesso negado" });
     return;
   }
@@ -21,7 +21,7 @@ export const authMiddleware = async (
 
   const userId = await getUserIdByToken(token);
   if (!userId) {
-    res.status(401).json({ error: "Acesso engado" });
+    res.status(401).json({ error: "Acesso negado" });
     return;
   }
 
