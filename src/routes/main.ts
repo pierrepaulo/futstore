@@ -22,3 +22,4 @@ routes.get(
 routes.post("/cart/mount", cartController.cartMout);
 routes.get("/cart/shipping", cartController.calculateShipping);
 routes.post("/user/register", userController.register);
+routes.post("/user/login", userController.login);
