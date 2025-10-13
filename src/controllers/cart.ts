@@ -6,6 +6,7 @@ import { calculateShippingSchema } from "../schemas/calculate-shipping-scehma";
 import { cartFinishSchema } from "../schemas/cart-finish-schema";
 import { getAddressById } from "../services/user";
 import { createOrder } from "../services/oder";
+import { createPaymentLink } from "../services/payment";
 
 export const cartMout: RequestHandler = async (req, res) => {
   const parseResult = cartMountSchema.safeParse(req.body);
@@ -75,8 +76,19 @@ export const finish: RequestHandler = async (req, res) => {
     cart,
   });
 
-  //integrar meio de pagamento
-  let url = "";
+  if (!orderId) {
+    res.status(400).json({ error: "Ocorreu um errro" });
+    return;
+  }
+  const url = await createPaymentLink({
+    cart,
+    shippingCost,
+    orderId,
+  });
+  if (!url) {
+    res.status(400).json({ error: "Ocorreu um errro" });
+    return;
+  }
 
   res.json({ error: null, url });
 };
