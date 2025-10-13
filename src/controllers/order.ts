@@ -1,6 +1,7 @@
 import { RequestHandler } from "express";
 import { getOrderBySessionIdSchema } from "../schemas/get-order-by-session-id-schema";
 import { getOrderIdFromSession } from "../services/payment";
+import { getUserOrders } from "../services/oder";
 
 export const getOrderBySessionId: RequestHandler = async (req, res) => {
   const result = getOrderBySessionIdSchema.safeParse(req.query);
@@ -16,4 +17,15 @@ export const getOrderBySessionId: RequestHandler = async (req, res) => {
   }
 
   res.json({ error: null, orderId });
+};
+
+export const listOrders: RequestHandler = async (req, res) => {
+  const userId = (req as any).userId;
+  if (!userId) {
+    res.status(401).json({ error: "Acesso negado" });
+    return;
+  }
+  const orders = await getUserOrders(userId);
+
+  res.json({ error: null, orders });
 };
