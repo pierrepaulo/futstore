@@ -1,3 +1,55 @@
+import { Banners } from "@/components/home/banners";
+import { data } from "@/data";
+import Image from "next/image";
+
 export default function Page() {
-  return <div>Iniciando projeto</div>;
+  return (
+    <div>
+      <Banners list={data.banners} />
+      <div className="flex flex-col md:flex-row gap-4 md:gap-8 mt-6 md:-mt12">
+        <div className="flex flex-1 py-6 border border-gray-200 rounded-sm">
+          <div className="w-32 border-r border-gray-200 flex justify-center items-center">
+            <Image
+              src={"/assets/ui/truck-line.png"}
+              alt=""
+              width={40}
+              height={40}
+            />
+          </div>
+          <div className="flex-1 pl-8">
+            <div className="font-bold text-xl">Frete Gratis</div>
+            <div className="text-gray-500">Para todo Brasil.</div>
+          </div>
+        </div>
+        <div className="flex flex-1 py-6 border border-gray-200 rounded-sm">
+          <div className="w-32 border-r border-gray-200 flex justify-center items-center">
+            <Image
+              src={"/assets/ui/discount-percent-line.png"}
+              alt=""
+              width={40}
+              height={40}
+            />
+          </div>
+          <div className="flex-1 pl-8">
+            <div className="font-bold text-xl">Muitas ofertas</div>
+            <div className="text-gray-500">Ofertas imbatíveis</div>
+          </div>
+        </div>
+        <div className="flex flex-1 py-6 border border-gray-200 rounded-sm">
+          <div className="w-32 border-r border-gray-200 flex justify-center items-center">
+            <Image
+              src={"/assets/ui/arrow-left-right-line.png"}
+              alt=""
+              width={40}
+              height={40}
+            />
+          </div>
+          <div className="flex-1 pl-8">
+            <div className="font-bold text-xl">Troca fácil</div>
+            <div className="text-gray-500">Em até 30 dias.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
