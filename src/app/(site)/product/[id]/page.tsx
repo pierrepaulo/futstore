@@ -15,7 +15,7 @@ export default async function Page({ params }: Props) {
     <div>
       <div className="text-gray-500 mb-4">
         <Link href={"/"}>Home</Link> &gt; <Link href={"/"}>Camisas</Link> &gt;
-        Nome do produto
+        {data.product.label}
       </div>
 
       <div className="flex flex-col md:flex-row gap-6 md:gap-32">
