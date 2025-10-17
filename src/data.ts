@@ -46,4 +46,33 @@ export const data = {
     liked: false,
     description: "Descrição do produto",
   },
+  addresses: [
+    {
+      id: 1,
+      zipcode: "12345",
+      street: "rua teste",
+      number: "123",
+      city: "cidade qualquer",
+      state: "estado algum",
+      country: "Pais",
+    },
+    {
+      id: 2,
+      zipcode: "12342",
+      street: "rua test21",
+      number: "1232",
+      city: "cidade qualquer2",
+      state: "estado algum2",
+      country: "Pais2",
+    },
+    {
+      id: 3,
+      zipcode: "12343",
+      street: "rua teste3",
+      number: "1233",
+      city: "cidade qualquer3",
+      state: "estado algum3",
+      country: "Pais3",
+    },
+  ],
 };
