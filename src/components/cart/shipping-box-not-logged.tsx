@@ -24,7 +24,7 @@ export const ShippingBoxNotLogged = () => {
         className="flex-1 px-5 py-4 bg-white border border-gray-200 rounded-sm"
       />
       <button
-        className="cursor-pointer px-5 py-4 bg-blue-600 text-white border-0 rounded-sm"
+        className="cursor-pointer border-0"
         onClick={handleUpdateShipping}
       >
         Calcular
