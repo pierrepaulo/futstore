@@ -1,3 +1,4 @@
+import { getBanners } from "@/actions/get-banners";
 import { Banners } from "@/components/home/banners";
 import { MostSoldProducts } from "@/components/home/most-sold-products";
 import { MostViewedProducts } from "@/components/home/most-viewed-product";
@@ -6,10 +7,12 @@ import { data } from "@/data";
 import Image from "next/image";
 import { Suspense } from "react";
 
-export default function Page() {
+export default async function Page() {
+  const banners = await getBanners();
+
   return (
     <div className="">
-      <Banners list={data.banners} />
+      <Banners list={banners} />
       <div className="flex flex-col md:flex-row gap-4 md:gap-8 mt-6 md:-mt12">
         <div className="flex flex-1 py-6 border border-gray-200 rounded-sm">
           <div className="w-32 border-r border-gray-200 flex justify-center items-center">
