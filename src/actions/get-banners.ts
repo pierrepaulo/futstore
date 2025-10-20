@@ -1,3 +1,4 @@
+//pegar backend
 import { api } from "@/libs/axios";
 import { Banner } from "@/types/banner";
 
