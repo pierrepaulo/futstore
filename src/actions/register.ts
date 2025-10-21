@@ -1,4 +1,7 @@
 "use server";
+
+import { api } from "@/libs/axios";
+
 type RegisterData = {
   name: string;
   email: string;
@@ -9,6 +12,15 @@ export const register = async ({
   email,
   password,
 }: RegisterData): Promise<{ error: string | null }> => {
-  //todo: requisicao para fazer cadastro
-  return { error: null };
+  try {
+    const response = await api.post("/user/register", {
+      name,
+      email,
+      password,
+    });
+    if (response.status === 201 && response.data.user) {
+      return { error: null };
+    }
+  } catch {}
+  return { error: "Ocorreu um erro" };
 };
