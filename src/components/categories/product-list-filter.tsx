@@ -1,9 +1,8 @@
 "use client";
 
 import { useQueryString } from "@/hooks/use-querystring";
-import { ChangeEvent, useEffect, useState, useTransition } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { FilterGroup } from "./filter-group";
-import { data } from "@/data";
 import { ProductItem } from "../product-item";
 import { Category, CategoryMetadata } from "@/types/category";
 import { Product } from "@/types/product";
