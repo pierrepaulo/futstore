@@ -3,12 +3,14 @@
 import Image from "next/image";
 import { FilterItem } from "./filter-item";
 import { useState } from "react";
+import { CategoryMetadataValue } from "@/types/category";
 
 type Props = {
   id: string;
   name: string;
+  values: CategoryMetadataValue[];
 };
-export const FilterGroup = ({ id, name }: Props) => {
+export const FilterGroup = ({ id, name, values }: Props) => {
   const [opened, setOpened] = useState(true);
   return (
     <div className="mb-8">
@@ -33,12 +35,9 @@ export const FilterGroup = ({ id, name }: Props) => {
           opened ? "h-auto" : "h-0"
         } transition-all`}
       >
-        <FilterItem
-          groupId={id}
-          item={{ id: "atualizada", label: "2025/2026" }}
-        />
-        <FilterItem groupId={id} item={{ id: "antigas", label: "2024/2025" }} />
-        <FilterItem groupId={id} item={{ id: "Retro", label: "Retro" }} />
+        {values.map((item) => (
+          <FilterItem key={item.id} groupId={id} item={item} />
+        ))}
       </div>
     </div>
   );
