@@ -26,7 +26,6 @@ export const ProductDetails = ({ product }: Props) => {
         R$ {product.price.toFixed(2)}
       </div>
       <div className="text-sm text-gray-500 mb-6">Em 12x no cartão</div>
-      <div>Carrinho: {cartStore.cart.length} </div>
       <div className="flex gap-4">
         <button
           onClick={addToCart}
