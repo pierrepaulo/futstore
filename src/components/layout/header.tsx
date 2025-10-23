@@ -21,13 +21,15 @@ export function Header() {
       </div>
       <div className="w-full max-w-6xl mx-auto p-6">
         <div className="flex items-center justify-between">
-          <div className="w-32">
+          <div className="flex-shrink-0 pr-6">
             <Link href={"/"}>
               <Image
-                src="/assets/ui/logoblack.png"
+                src="/assets/ui/logo.png"
                 alt="FutStore"
-                width={120}
-                height={40}
+                width={210}
+                height={70}
+                className="h-14 w-auto max-w-none"
+                priority
               />
             </Link>
           </div>

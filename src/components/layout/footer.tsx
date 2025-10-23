@@ -48,10 +48,10 @@ export const Footer = () => {
           <div className="flex flex-col md:flex-row justify-between items-center gap-6 py-16 md:py-10 border-b border-gray-700">
             <Link href="/">
               <Image
-                src={"/assets/ui/logoblack.png"}
+                src={"/assets/ui/logo.png"}
                 alt="FutStore"
-                width={143}
-                height={48}
+                width={210}
+                height={70}
               />
             </Link>
             <ul className="flex flex-col md:flex-row gap-8 items-center">
