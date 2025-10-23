@@ -5,7 +5,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "tsx watch --env-file=.env src/server.ts"
+    "dev": "tsx watch --env-file=.env src/server.ts",
+    "db:seed": "prisma db seed"
   },
   "repository": {
     "type": "git",
@@ -16,6 +17,9 @@
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/pierrepaulo/futstore-backend/issues"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
   },
   "homepage": "https://github.com/pierrepaulo/futstore-backend#readme",
   "dependencies": {
