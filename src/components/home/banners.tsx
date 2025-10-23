@@ -53,7 +53,7 @@ export const Banners = ({ list }: Props) => {
           </Link>
         ))}
       </div>
-      <div className="mt-4 flex justify-center gap-4">
+      <div className="mt-8 flex justify-center gap-4">
         {list.map((banner, index) => (
           <div
             key={index}
