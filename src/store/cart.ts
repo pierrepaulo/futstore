@@ -1,3 +1,4 @@
+import { ProductSize } from "@/constants/product-sizes";
 import { CartItem } from "@/types/cart-item";
 import { create } from "zustand";
 
@@ -8,8 +9,12 @@ type CartState = {
   shippingDays: number;
   selectedAddresId: number | null;
   addItem: (cartItem: CartItem) => void;
-  removeItem: (productId: string | number) => void;
-  updateQuantity: (productId: string | number, quantity: number) => void;
+  removeItem: (productId: string | number, size: ProductSize) => void;
+  updateQuantity: (
+    productId: string | number,
+    size: ProductSize,
+    quantity: number
+  ) => void;
   setShippingZipcode: (zipcode: string) => void;
   setShippingCost: (cost: number) => void;
   setShippingDays: (days: number) => void;
@@ -24,33 +29,38 @@ export const useCartStore = create<CartState>((set) => ({
   shippingCost: 0,
   shippingDays: 0,
   selectedAddresId: null,
-  addItem: ({ productId, quantity }) =>
+  addItem: ({ productId, size, quantity }) =>
     set((state) => {
-      const existing = state.cart.find((item) => item.productId === productId);
-      let newCart;
-      if (existing) {
-        newCart = state.cart.map((item) =>
-          item.productId === productId
+      const existingIndex = state.cart.findIndex(
+        (item) => item.productId === productId && item.size === size
+      );
+
+      let newCart: CartItem[];
+      if (existingIndex > -1) {
+        newCart = state.cart.map((item, index) =>
+          index === existingIndex
             ? { ...item, quantity: item.quantity + quantity }
             : item
         );
       } else {
-        newCart = [...state.cart, { productId, quantity }];
+        newCart = [...state.cart, { productId, size, quantity }];
       }
       return { cart: newCart };
     }),
-  removeItem: (productId) =>
-    set((state) => {
-      const newCart = state.cart.filter((item) => item.productId !== productId);
-      return { cart: newCart };
-    }),
-  updateQuantity: (productId, quantity) =>
-    set((state) => {
-      const newCart = state.cart.map((item) =>
-        item.productId === productId ? { ...item, quantity } : item
-      );
-      return { cart: newCart };
-    }),
+  removeItem: (productId, size) =>
+    set((state) => ({
+      cart: state.cart.filter(
+        (item) => !(item.productId === productId && item.size === size)
+      ),
+    })),
+  updateQuantity: (productId, size, quantity) =>
+    set((state) => ({
+      cart: state.cart.map((item) =>
+        item.productId === productId && item.size === size
+          ? { ...item, quantity }
+          : item
+      ),
+    })),
   setShippingZipcode: (zipcode) => set({ shippingZipcode: zipcode }),
   setShippingCost: (cost) => set({ shippingCost: cost }),
   setShippingDays: (days) => set({ shippingDays: days }),

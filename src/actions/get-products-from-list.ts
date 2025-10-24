@@ -1,13 +1,22 @@
 "use server";
 
 import { api } from "@/libs/axios";
-import { Product } from "@/types/product";
+import { CartItem } from "@/types/cart-item";
+import { CartListProduct } from "@/types/cart-list-item";
+import { ProductSize } from "@/constants/product-sizes";
 
-export const getProductsFromList = async (ids: (string | number)[]) => {
+type MountedCartItem = {
+  product: CartListProduct;
+  size: ProductSize;
+};
+
+export const getProductsFromList = async (
+  items: CartItem[]
+): Promise<MountedCartItem[]> => {
   try {
-    const response = await api.post("/cart/mount", { ids });
+    const response = await api.post("/cart/mount", { items });
     if (response.status === 200) {
-      return response.data.products as Product[];
+      return response.data.items as MountedCartItem[];
     }
   } catch {}
   return [];

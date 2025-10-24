@@ -1,6 +1,14 @@
-import { Product } from "./product";
+import { ProductSize } from "@/constants/product-sizes";
+
+export type CartListProduct = {
+  id: number;
+  label: string;
+  image: string | null;
+  price: number;
+};
 
 export type CartListItem = {
-  product: Product;
+  product: CartListProduct;
+  size: ProductSize;
   quantity: number;
 };

@@ -15,17 +15,21 @@ export default async function Page() {
   let cartProducts: CartListItem[] = [];
   let subtotal: number = 0;
 
-  const ids = initialCart.map((item) => item.productId);
-  const products = await getProductsFromList(ids);
+  const mountedItems = await getProductsFromList(initialCart);
 
   for (let cartItem of initialCart) {
-    let prodIndex = products.findIndex((i) => i.id === cartItem.productId);
-    if (prodIndex > -1) {
+    const matchedItem = mountedItems.find(
+      (mounted) =>
+        mounted.product.id === cartItem.productId && mounted.size === cartItem.size
+    );
+
+    if (matchedItem) {
       cartProducts.push({
-        product: products[prodIndex],
+        product: matchedItem.product,
+        size: matchedItem.size,
         quantity: cartItem.quantity,
       });
-      subtotal += products[prodIndex].price * cartItem.quantity;
+      subtotal += matchedItem.product.price * cartItem.quantity;
     }
   }
 
