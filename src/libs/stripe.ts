@@ -23,7 +23,7 @@ export const createStripeChekoutSession = async ({
       stripeLineItems.push({
         price_data: {
           product_data: {
-            name: product.label,
+            name: `${product.label} - Tamanho ${item.size}`,
           },
           currency: "BRL",
           unit_amount: Math.round(product.price * 100),

@@ -8,7 +8,7 @@ import { getAbsoluteImageUrl } from "../utils/get-absolut-image-url";
 export const getOrderBySessionId: RequestHandler = async (req, res) => {
   const result = getOrderBySessionIdSchema.safeParse(req.query);
   if (!result.success) {
-    res.status(400).json({ error: "Session ID não enviado" });
+    res.status(400).json({ error: "Session ID nuo enviado" });
     return;
   }
   const { session_id } = result.data;
@@ -53,15 +53,21 @@ export const getOrder: RequestHandler = async (req, res) => {
     return;
   }
 
-  const itemsWithAbsoluteUrl = order.orderItems.map((item) => ({
-    ...item,
-    product: {
-      ...item.product,
-      image: item.product.image
+  const itemsWithAbsoluteUrl = order.orderItems.map(
+    (item): typeof order.orderItems[number] => {
+      const absoluteImage = item.product.image
         ? getAbsoluteImageUrl(item.product.image)
-        : null,
-    },
-  }));
+        : null;
+
+      return {
+        ...item,
+        product: {
+          ...item.product,
+          image: absoluteImage,
+        },
+      };
+    }
+  );
 
   res.json({
     error: null,

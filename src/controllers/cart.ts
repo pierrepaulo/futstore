@@ -7,31 +7,44 @@ import { cartFinishSchema } from "../schemas/cart-finish-schema";
 import { getAddressById } from "../services/user";
 import { createOrder } from "../services/oder";
 import { createPaymentLink } from "../services/payment";
+import { ProductSize } from "../types/product-size";
 
 export const cartMout: RequestHandler = async (req, res) => {
   const parseResult = cartMountSchema.safeParse(req.body);
   if (!parseResult.success) {
-    res.status(400).json({ error: "Array de ids invalido" });
+    res.status(400).json({ error: "Itens invalidos" });
     return;
   }
-  const { ids } = parseResult.data;
+  const { items } = parseResult.data;
 
-  let products = [];
-  for (let id of ids) {
-    const product = await getProduct(id);
+  const mountedItems: Array<{
+    product: {
+      id: number;
+      label: string;
+      price: number;
+      image: string | null;
+    };
+    size: ProductSize;
+  }> = [];
+
+  for (const { productId, size } of items) {
+    const product = await getProduct(productId);
     if (product) {
-      products.push({
-        id: product.id,
-        label: product.label,
-        price: product.price,
-        image: product.images[0]
-          ? getAbsoluteImageUrl(product.images[0])
-          : null,
+      mountedItems.push({
+        product: {
+          id: product.id,
+          label: product.label,
+          price: product.price,
+          image: product.images[0]
+            ? getAbsoluteImageUrl(product.images[0])
+            : null,
+        },
+        size,
       });
     }
   }
 
-  res.json({ error: null, products });
+  res.json({ error: null, items: mountedItems });
 };
 
 export const calculateShipping: RequestHandler = async (req, res) => {
@@ -61,7 +74,7 @@ export const finish: RequestHandler = async (req, res) => {
   const { cart, addressId } = result.data;
   const address = await getAddressById(userId, addressId);
   if (!address) {
-    res.status(400).json({ error: "Endereço invalido" });
+    res.status(400).json({ error: "Endereco invalido" });
     return;
   }
 

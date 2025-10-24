@@ -26,6 +26,7 @@ export const createOrder = async ({
       subtotal += product.price * cartItem.quantity;
       orderItems.push({
         productId: product.id,
+        size: cartItem.size,
         quantity: cartItem.quantity,
         price: product.price,
       });
@@ -97,6 +98,7 @@ export const getOrderById = async (id: number, userId: number) => {
       orderItems: {
         select: {
           id: true,
+          size: true,
           quantity: true,
           price: true,
           product: {
