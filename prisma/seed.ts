@@ -1,4 +1,6 @@
 import { PrismaClient } from "../src/generated/prisma";
+import { hashSync } from "bcryptjs";
+import type { ProductSize } from "../src/types/product-size";
 
 const prisma = new PrismaClient();
 
@@ -46,8 +48,7 @@ const teamProducts: TeamProductConfig[] = [
     id: "cruzeiro",
     name: "Cruzeiro",
     productLabel: "Camisa Cruzeiro 2024",
-    description:
-      "Camisa azul do Cruzeiro 2024 inspirada na torcida celeste.",
+    description: "Camisa azul do Cruzeiro 2024 inspirada na torcida celeste.",
     price: 229.9,
     images: ["cruzeiro-1.png"],
   },
@@ -96,6 +97,16 @@ const teamProducts: TeamProductConfig[] = [
     price: 239.9,
     images: ["vasco-1.png"],
   },
+];
+
+const seedOrderItems: Array<{
+  productIndex: number;
+  quantity: number;
+  size: ProductSize;
+}> = [
+  { productIndex: 0, quantity: 1, size: "M" },
+  { productIndex: 1, quantity: 2, size: "G" },
+  { productIndex: 2, quantity: 1, size: "P" },
 ];
 
 async function main() {
@@ -170,7 +181,7 @@ async function main() {
 
   console.log("[seed] Creating products, images and metadata relations...");
   let productImageCount = 0;
-  const products = [];
+  const products: Array<{ id: number; price: number }> = [];
 
   for (const team of teamProducts) {
     const product = await prisma.product.create({
@@ -182,7 +193,7 @@ async function main() {
       },
     });
 
-    products.push(product);
+    products.push({ id: product.id, price: product.price });
 
     const images = await Promise.all(
       team.images.map((url) =>
@@ -208,6 +219,58 @@ async function main() {
   console.log("[seed] Products created:", products.length);
   console.log("[seed] Product images created:", productImageCount);
   console.log("[seed] Product metadata relations created:", products.length);
+  console.log("[seed] Creating sample user and order...");
+  const seedUser = await prisma.user.create({
+    data: {
+      name: "Cliente FutStore",
+      email: "cliente@futstore.com",
+      password: hashSync("futstore123", 10),
+    },
+  });
+
+  const shippingCost = 19.9;
+  const orderItemsData = seedOrderItems.map(
+    ({ productIndex, quantity, size }) => {
+      const product = products[productIndex];
+      if (!product) {
+        throw new Error(`[seed] Product index ${productIndex} was not created`);
+      }
+
+      return { product, quantity, size };
+    }
+  );
+
+  const subtotal = orderItemsData.reduce(
+    (accumulator, { product, quantity }) =>
+      accumulator + product.price * quantity,
+    0
+  );
+
+  await prisma.order.create({
+    data: {
+      userId: seedUser.id,
+      status: "paid",
+      total: subtotal + shippingCost,
+      shippingCost,
+      shippingDays: 5,
+      shippingZipcode: "01001-000",
+      shippingStreet: "Rua dos Campeões",
+      shippingNumber: "123",
+      shippingCity: "São Paulo",
+      shippingState: "SP",
+      shippingCountry: "Brasil",
+      orderItems: {
+        create: orderItemsData.map(({ product, quantity, size }) => ({
+          productId: product.id,
+          quantity,
+          price: product.price,
+          size,
+        })),
+      },
+    },
+  });
+
+  console.log("[seed] Sample order created with size variations.");
 
   console.log("[seed] Database seeding completed successfully!");
 }
